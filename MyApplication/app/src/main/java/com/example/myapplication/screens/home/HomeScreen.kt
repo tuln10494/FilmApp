@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import com.example.myapplication.Screen
+import com.example.myapplication.repositories.StoreValue
 
 @Composable
 fun HomeScreen(navController: NavHostController, hiltViewModel: HomeViewModel) {
