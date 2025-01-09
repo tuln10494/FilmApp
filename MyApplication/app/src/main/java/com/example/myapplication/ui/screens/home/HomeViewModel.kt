@@ -1,6 +1,8 @@
 package com.example.myapplication.screens.home
 
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.repositories.MainLog
+import com.example.myapplication.repositories.StoreValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,7 +13,11 @@ data class HomeUiState(
 )
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val log: MainLog?,
+    private val storeValue: StoreValue?
+) : ViewModel() {
+    private val tag = "HomeViewModel"
     val _uiState = MutableStateFlow(HomeUiState(""))
     val uiState = _uiState.asStateFlow()
 
@@ -20,7 +26,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     }
 
     override fun onCleared() {
-        println("HomeViewModel on cleard")
-        super.onCleared()
+        log?.i(tag,"HomeViewModel on cleared")
+
     }
 }

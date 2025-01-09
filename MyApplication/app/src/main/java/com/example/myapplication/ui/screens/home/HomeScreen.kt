@@ -5,9 +5,10 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.example.myapplication.Screen
-import com.example.myapplication.repositories.StoreValue
 
 @Composable
 fun HomeScreen(navController: NavHostController, hiltViewModel: HomeViewModel) {
@@ -26,4 +27,13 @@ fun HomeScreen(navController: NavHostController, hiltViewModel: HomeViewModel) {
             Text("Edit String Test")
         }
     }
+}
+
+@Preview
+@Composable
+fun HomeScreenPreview(){
+    // need make argument of ViewModel as Nullable to see Preview
+    HomeScreen(navController = NavHostController(LocalContext.current),
+        hiltViewModel = HomeViewModel(null,null)
+    )
 }
