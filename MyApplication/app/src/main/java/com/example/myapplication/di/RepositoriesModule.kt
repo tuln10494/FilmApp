@@ -1,5 +1,7 @@
 package com.example.myapplication.di
 
+import com.example.myapplication.repositories.HomeRepository.HomeApi
+import com.example.myapplication.repositories.HomeRepository.HomeApiImpl
 import com.example.myapplication.repositories.MainLog
 import com.example.myapplication.repositories.MainLogImpl
 import com.example.myapplication.repositories.StoreValue
@@ -20,4 +22,8 @@ abstract class RepositoriesModule {
     @Binds
     @Singleton
     abstract fun bindStoreValue(store : StoreValueImpl) :StoreValue
+
+    @Binds
+    @Singleton
+    abstract fun bindHomeApi(homeApi: HomeApiImpl) : HomeApi
 }
