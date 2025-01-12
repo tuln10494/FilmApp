@@ -12,25 +12,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.myapplication.Screen
 
 @Composable
-fun BookTicketButton(navController: NavController) {
+fun BookTicketButton(onClick: () -> Unit) {
     Column(
         modifier = Modifier
-            .fillMaxWidth() // Fills the entire screens or parent
-            .padding(8.dp), // Optional padding for spacing
-        verticalArrangement = Arrangement.Center, // Centers vertically
-        horizontalAlignment = Alignment.CenterHorizontally // Centers horizontally
+            .fillMaxWidth()
+            .padding(8.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        OutlinedButton(onClick = {
-            navController.navigate(Screen.SeatsSelection.route)
-        },
+        OutlinedButton(
+            onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                Color.Red
-            )) {
+            colors = ButtonDefaults.buttonColors(Color.Red)
+        ) {
             Text(text = "Đặt Vé")
         }
     }

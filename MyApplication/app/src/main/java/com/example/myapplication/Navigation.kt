@@ -11,6 +11,7 @@ import com.example.myapplication.ui.screens.login.LoginScreen
 import com.example.myapplication.ui.screens.seats.SeatsSelectionScreen
 import com.example.myapplication.ui.screens.profile.EditProfileScreen
 import com.example.myapplication.ui.screens.profile.ProfileScreen
+import com.example.myapplication.ui.screens.ticket.BookTicketScreen
 
 //Create route for your screen here
 
@@ -21,6 +22,7 @@ sealed class Screen(val route: String) {
     data object Register : Screen("register_screen")
     data object Profile : Screen("profile_screen")
     data object EditProfile : Screen("edit_profile_screen")
+    data object BookTicket : Screen("book_ticket_screen")
     data object SeatsSelection : Screen("seats_selection_screen")
 }
 
@@ -40,6 +42,9 @@ fun Navigation() {
         }
         composable(Screen.Login.route) {
             LoginScreen(navController, hiltViewModel())
+        }
+        composable(Screen.BookTicket.route) {
+            BookTicketScreen(navController)
         }
         composable(Screen.SeatsSelection.route) {
             SeatsSelectionScreen()

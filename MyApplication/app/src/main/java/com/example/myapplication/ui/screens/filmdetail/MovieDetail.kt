@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.myapplication.Screen
 
 @Composable
 fun ScreenMovieDetail(navController: NavController) {
@@ -20,7 +21,7 @@ fun ScreenMovieDetail(navController: NavController) {
         Spacer(modifier = Modifier.height(2.dp))
         InfoDetailText()
         Spacer(modifier = Modifier.height(2.dp))
-        BookTicketButton(navController)
+        BookTicketButton(onClick = { navController.navigate(Screen.BookTicket.route) })
     }
 }
 
