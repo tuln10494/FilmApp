@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.myapplication.data.center.Center
+import com.example.myapplication.data.center.CenterDao
 import com.example.myapplication.data.user.UserInfo
 
 @Database(entities = [Center::class,UserInfo::class], version = 2)
