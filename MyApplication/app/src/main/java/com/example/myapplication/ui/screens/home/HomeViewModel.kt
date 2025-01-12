@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.home
+package com.example.myapplication.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.common.enum.LoadStatus
