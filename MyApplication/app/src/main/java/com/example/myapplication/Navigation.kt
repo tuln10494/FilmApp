@@ -23,7 +23,7 @@ sealed class Screen(val route: String) {
 fun Navigation() {
     val navController = rememberNavController()
     val mainViewModel: MainViewModel = hiltViewModel()
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Login.route) {
         composable(Screen.Home.route) {
             HomeScreen(navController, hiltViewModel(), mainViewModel)
         }
