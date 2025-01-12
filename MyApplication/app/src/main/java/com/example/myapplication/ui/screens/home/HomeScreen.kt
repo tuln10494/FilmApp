@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.home
+package com.example.myapplication.ui.screens.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavHostController
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
-import com.example.myapplication.ui.screens.home.HomeAppBar
 import kotlin.math.absoluteValue
 
 val images = listOf(
@@ -41,10 +40,10 @@ val images = listOf(
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    hiltViewModel: HomeViewModel,
+    homeViewModel: HomeViewModel,
     mainViewModel: MainViewModel
 ) {
-    val state = hiltViewModel.uiState.collectAsState()
+    val state = homeViewModel.uiState.collectAsState()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -58,21 +57,6 @@ fun HomeScreen(
             HorizontalPager(state = pageState, contentPadding = PaddingValues(50.dp)) { index ->
                 CardMovieContent(index = index, pageState)
             }
-
-
-
-//            ElevatedButton(onClick = {
-//                navController.navigate(Screen.Login.route)
-//            }) {
-//                Text("HomeScreen")
-//            }
-//            Text(text = state.value.test)
-//
-//            ElevatedButton(onClick = {
-//                hiltViewModel.updateTest("hehe")
-//            }) {
-//                Text("Edit String Test")
-//            }
         }
     }
 }
@@ -115,6 +99,6 @@ fun HomeScreenPreview() {
     // need make argument of ViewModel as Nullable to see Preview
     HomeScreen(
         navController = NavHostController(LocalContext.current),
-        hiltViewModel = HomeViewModel(null, null, null), mainViewModel = MainViewModel()
+        homeViewModel = HomeViewModel(null, null, null), mainViewModel = MainViewModel()
     )
 }
