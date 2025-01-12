@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavHostController
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
+import com.example.myapplication.Screen
 import com.example.myapplication.ui.screens.home.HomeAppBar
 import com.example.myapplication.ui.screens.home.HomeViewModel
 import kotlin.math.absoluteValue
@@ -74,7 +75,7 @@ fun HomeScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            HomeAppBar()
+            HomeAppBar(navController)
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
