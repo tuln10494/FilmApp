@@ -2,6 +2,7 @@ package com.example.myapplication.screens.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -80,7 +81,9 @@ fun HomeScreen(
 @Composable
 fun CardMovieContent(index: Int, pagerState: PagerState) {
     val pageOffset = (pagerState.currentPage - index) + pagerState.currentPageOffsetFraction
-    Card(shape = RoundedCornerShape(10.dp), modifier = Modifier
+    Card(shape = RoundedCornerShape(10.dp), modifier = Modifier.clickable {
+        // Click to navigate detail
+    }
         .padding(2.dp)
         .graphicsLayer {
             lerp(
