@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -43,8 +42,7 @@ val voucherImage = listOf(
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    homeViewModel: HomeViewModel,
-    mainViewModel: MainViewModel
+    homeViewModel: HomeViewModel
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -73,7 +71,7 @@ fun HomeScreen(
             VoucherCarousel(voucherPageState)
             MovieMenu()
             MovieCarousel(pageState = pageState, movies = movies.value, onMovieClick = {
-                navController.navigate(Screen.MovieDetail.route)
+                navController.navigate("${Screen.MovieDetail.route}/$it")
             })
             MovieDescription()
         }

@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import com.example.myapplication.data.movie.Movie
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -27,18 +28,18 @@ import kotlin.math.absoluteValue
 fun CardMovieContent(
     index: Int,
     pagerState: PagerState,
-    imageName: String,
-    onMovieClick: () -> Unit
+    movie: Movie,
+    onMovieClick: (Int) -> Unit
 ) {
     val pageOffset = (pagerState.currentPage - index) + pagerState.currentPageOffsetFraction
     val context = LocalContext.current
-    val resourceId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
+    val resourceId = context.resources.getIdentifier(movie.imageName, "drawable", context.packageName)
 
     Card(shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(Color.Transparent),
         modifier = Modifier
             .clickable {
-                onMovieClick()
+                onMovieClick(movie.id)
             }
             .padding(2.dp)
             .graphicsLayer {

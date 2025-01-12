@@ -17,7 +17,7 @@ import com.example.myapplication.data.movie.Movie
 fun MovieCarousel(
     pageState: PagerState,
     movies: List<Movie>,
-    onMovieClick: () -> Unit
+    onMovieClick: (Int) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun MovieCarousel(
             CardMovieContent(
                 index = index,
                 pagerState = pageState,
-                imageName = movies[index].imageName,
+                movie = movies[index],
                 onMovieClick = onMovieClick,
             )
         }

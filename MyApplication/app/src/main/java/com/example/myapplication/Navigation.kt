@@ -2,11 +2,13 @@ package com.example.myapplication
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.myapplication.ui.screens.home.HomeScreen
-import com.example.myapplication.ui.screens.filmdetail.ScreenMovieDetail
+import com.example.myapplication.ui.screens.filmdetail.MovieDetailScreen
 import com.example.myapplication.ui.screens.login.LoginScreen
 import com.example.myapplication.ui.screens.seats.SeatsSelectionScreen
 import com.example.myapplication.ui.screens.profile.EditProfileScreen
@@ -29,10 +31,9 @@ sealed class Screen(val route: String) {
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    val mainViewModel: MainViewModel = hiltViewModel()
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(Screen.Home.route) {
-            HomeScreen(navController, hiltViewModel(), mainViewModel)
+            HomeScreen(navController, hiltViewModel())
         }
         composable(Screen.Profile.route) {
             ProfileScreen(navController)
@@ -49,8 +50,16 @@ fun Navigation() {
         composable(Screen.SeatsSelection.route) {
             SeatsSelectionScreen()
         }
-        composable(Screen.MovieDetail.route) {
-            ScreenMovieDetail(navController)
+        composable(
+            route = "${Screen.MovieDetail.route}/{movieId}", arguments = listOf(
+                navArgument("movieId") { type = NavType.IntType }
+            )
+        ) {
+            MovieDetailScreen(
+                navController = navController,
+                viewModel = hiltViewModel(),
+                movieId = it.arguments?.getInt("movieId") ?: 0
+            )
         }
     }
 }

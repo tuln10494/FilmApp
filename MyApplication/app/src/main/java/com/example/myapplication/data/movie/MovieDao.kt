@@ -8,4 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieDao {
     @Query("SELECT * FROM movies_table")
     fun getAll(): Flow<List<Movie>>
+
+    @Query("SELECT * FROM movies_table WHERE movie_id = :id")
+    fun findMovieById(id: Int): Flow<Movie?>
 }
