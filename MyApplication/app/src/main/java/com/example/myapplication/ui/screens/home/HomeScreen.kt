@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.home
+package com.example.myapplication.ui.screens.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -12,7 +12,9 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavHostController
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
+import com.example.myapplication.Screen
 import com.example.myapplication.ui.screens.home.HomeAppBar
 import kotlin.math.absoluteValue
 
@@ -48,7 +51,7 @@ fun HomeScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            HomeAppBar()
+            HomeAppBar(navController)
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
@@ -61,11 +64,7 @@ fun HomeScreen(
 
 
 
-//            ElevatedButton(onClick = {
-//                navController.navigate(Screen.Login.route)
-//            }) {
-//                Text("HomeScreen")
-//            }
+
 //            Text(text = state.value.test)
 //
 //            ElevatedButton(onClick = {

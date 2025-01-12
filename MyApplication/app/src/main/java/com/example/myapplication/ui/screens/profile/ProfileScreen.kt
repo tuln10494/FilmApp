@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.R
+import com.example.myapplication.Screen
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -154,7 +155,7 @@ fun OptionsList(navController: NavController) {
             title = "Thông tin Tài khoản",
             icon1 = painterResource(R.drawable.ic_account_box),
             icon2 = painterResource(R.drawable.ic_next),
-            onClick={ navController.navigate("456") }
+            onClick={ navController.navigate(Screen.EditProfile.route) }
         )
         Divider(color = Color.LightGray, thickness = 1.dp)
         OptionItem(
