@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.myapplication.data.AppDatabase
-import com.example.myapplication.data.CenterRepository
-import com.example.myapplication.data.CenterRepositoryImpl
+import com.example.myapplication.data.center.CenterRepository
+import com.example.myapplication.data.center.CenterRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
