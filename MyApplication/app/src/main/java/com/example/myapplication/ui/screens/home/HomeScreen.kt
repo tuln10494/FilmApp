@@ -44,6 +44,7 @@ import androidx.navigation.NavHostController
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
 import com.example.myapplication.ui.screens.home.HomeAppBar
+import com.example.myapplication.ui.screens.home.HomeViewModel
 import kotlin.math.absoluteValue
 
 val images = listOf(
