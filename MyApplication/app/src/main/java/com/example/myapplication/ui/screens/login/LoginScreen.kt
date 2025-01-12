@@ -1,10 +1,10 @@
-package com.example.myapplication.screens.login
+package com.example.myapplication.ui.screens.login
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 
 @Composable
-fun LoginScreen(navController: NavHostController, hiltViewModel: LoginViewModel) {
+fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel) {
     Text("loginScreen")
 }

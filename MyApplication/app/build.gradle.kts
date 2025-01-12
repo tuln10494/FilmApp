@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 //    alias(libs.plugins.kotlin.compose)
 //    alias(libs.plugins.androidLibrary) apply false
 }
@@ -90,7 +91,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.gson)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.exifinterface)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

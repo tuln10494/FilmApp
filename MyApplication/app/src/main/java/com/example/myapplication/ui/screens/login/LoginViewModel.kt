@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.login
+package com.example.myapplication.ui.screens.login
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
