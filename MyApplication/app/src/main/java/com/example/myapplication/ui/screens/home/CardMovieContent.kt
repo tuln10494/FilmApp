@@ -24,13 +24,17 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CardMovieContent(index: Int, pagerState: PagerState) {
+fun CardMovieContent(
+    index: Int,
+    pagerState: PagerState,
+    onMovieClick: () -> Unit
+) {
     val pageOffset = (pagerState.currentPage - index) + pagerState.currentPageOffsetFraction
     Card(shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(Color.Transparent),
         modifier = Modifier
             .clickable {
-                // Click to navigate detail
+                onMovieClick()
             }
             .padding(2.dp)
             .graphicsLayer {

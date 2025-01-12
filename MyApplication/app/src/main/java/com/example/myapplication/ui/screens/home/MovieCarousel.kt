@@ -13,7 +13,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun MovieCarousel(pageState: PagerState) {
+fun MovieCarousel(
+    pageState: PagerState,
+    onMovieClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -23,7 +26,7 @@ fun MovieCarousel(pageState: PagerState) {
             state = pageState,
             contentPadding = PaddingValues(horizontal = 60.dp, vertical = 8.dp)
         ) { index ->
-            CardMovieContent(index = index, pageState)
+            CardMovieContent(index = index, pagerState = pageState, onMovieClick = onMovieClick)
         }
     }
 }

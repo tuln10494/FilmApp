@@ -20,6 +20,7 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
+import com.example.myapplication.Screen
 import com.example.myapplication.ui.screens.home.HomeAppBar
 import com.example.myapplication.ui.screens.home.HomeViewModel
 import com.example.myapplication.ui.screens.home.MovieCarousel
@@ -75,7 +76,9 @@ fun HomeScreen(
         ) {
             VoucherCarousel(voucherPageState)
             MovieMenu()
-            MovieCarousel(pageState)
+            MovieCarousel(pageState = pageState, onMovieClick = {
+                navController.navigate(Screen.MovieDetail.route)
+            })
             MovieDescription()
         }
     }
