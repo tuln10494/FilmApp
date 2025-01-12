@@ -10,11 +10,13 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.data.movie.Movie
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 fun MovieCarousel(
     pageState: PagerState,
+    movies: List<Movie>,
     onMovieClick: () -> Unit
 ) {
     Box(
@@ -26,7 +28,12 @@ fun MovieCarousel(
             state = pageState,
             contentPadding = PaddingValues(horizontal = 60.dp, vertical = 8.dp)
         ) { index ->
-            CardMovieContent(index = index, pagerState = pageState, onMovieClick = onMovieClick)
+            CardMovieContent(
+                index = index,
+                pagerState = pageState,
+                imageName = movies[index].imageName,
+                onMovieClick = onMovieClick,
+            )
         }
     }
 }

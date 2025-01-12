@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.home
+package com.example.myapplication.ui.screens.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
@@ -21,12 +22,6 @@ import coil.size.Size
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
 import com.example.myapplication.Screen
-import com.example.myapplication.ui.screens.home.HomeAppBar
-import com.example.myapplication.ui.screens.home.HomeViewModel
-import com.example.myapplication.ui.screens.home.MovieCarousel
-import com.example.myapplication.ui.screens.home.MovieDescription
-import com.example.myapplication.ui.screens.home.MovieMenu
-import com.example.myapplication.ui.screens.home.VoucherCarousel
 
 val images = listOf(
     R.drawable.cd_poster,
@@ -64,7 +59,8 @@ fun HomeScreen(
                 .build(),
             contentScale = ContentScale.FillBounds
         )
-        val pageState = rememberPagerState(initialPage = 1) { images.size }
+        val movies = homeViewModel.movies.collectAsState(emptyList())
+        val pageState = rememberPagerState(initialPage = 1) { movies.value.size }
         val voucherPageState = rememberPagerState(initialPage = 1) { voucherImage.size }
 
         Column(
@@ -76,20 +72,10 @@ fun HomeScreen(
         ) {
             VoucherCarousel(voucherPageState)
             MovieMenu()
-            MovieCarousel(pageState = pageState, onMovieClick = {
+            MovieCarousel(pageState = pageState, movies = movies.value, onMovieClick = {
                 navController.navigate(Screen.MovieDetail.route)
             })
             MovieDescription()
         }
     }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    // need make argument of ViewModel as Nullable to see Preview
-    HomeScreen(
-        navController = NavHostController(LocalContext.current),
-        homeViewModel = HomeViewModel(null, null, null), mainViewModel = MainViewModel()
-    )
 }

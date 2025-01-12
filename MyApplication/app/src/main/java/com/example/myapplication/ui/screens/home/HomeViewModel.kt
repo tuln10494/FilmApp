@@ -2,6 +2,7 @@ package com.example.myapplication.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.common.enum.LoadStatus
+import com.example.myapplication.data.movie.MovieRepository
 import com.example.myapplication.repositories.HomeRepository.HomeApi
 import com.example.myapplication.repositories.MainLog
 import com.example.myapplication.repositories.StoreValue
@@ -16,21 +17,6 @@ data class HomeUiState(
 )
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val log: MainLog?,
-    private val storeValue: StoreValue?,
-    private val homeApi: HomeApi?
-) : ViewModel() {
-    private val tag = "HomeViewModel"
-    val _uiState = MutableStateFlow(HomeUiState(""))
-    val uiState = _uiState.asStateFlow()
-
-    fun updateTest(s:String) {
-        _uiState.value = _uiState.value.copy(test = s)
-    }
-
-    override fun onCleared() {
-        log?.i(tag,"HomeViewModel on cleared")
-
-    }
+class HomeViewModel @Inject constructor(movieRepository: MovieRepository) : ViewModel() {
+    val movies = movieRepository.getAll()
 }

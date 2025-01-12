@@ -21,8 +21,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
-import com.example.myapplication.screens.home.voucherImage
-
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 fun VoucherCarousel(pageState: PagerState) {
