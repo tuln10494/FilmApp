@@ -8,11 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SeeMoreTextExample() {
+fun SeeMoreTextExample(text: String = "") {
     Text(
-        text = "Trò chơi con mực là một bộ phim truyền hình Hàn Quốc do Hwang Dong-hyuk viết kịch bản và đạo diễn. " +
-                "Phim được Netflix phát hành trực tuyến vào ngày 17 tháng 9 năm 2021. " +
-                "Phim kể về một nhóm 456 người mạo hiểm tính mạng trong 6 trò chơi",
+        text = text,
         modifier = Modifier.padding(start = 8.dp).fillMaxHeight(0.2f)
     )
 }

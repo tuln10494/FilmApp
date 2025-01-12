@@ -26,9 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.data.movie.Movie
 
 @Composable
-fun OverlappingImages() {
+fun OverlappingImages(movie: Movie) {
     Box(
         modifier = Modifier
             .padding(top = 24.dp)
@@ -42,11 +43,11 @@ fun OverlappingImages() {
         )
 
         Text(
-            text = "Movie Title",
+            text = movie.name,
             modifier = Modifier.offset(x = 120.dp, y = 150.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = Color.Black
         )
         Row(
             modifier = Modifier
@@ -73,31 +74,12 @@ fun OverlappingImages() {
                         contentColor = Color.Black)
                 ) {
                     Icon(Icons.Default.DateRange, contentDescription = "")
-                    Text(
-                        text = "11-12-2024"
-                    )
+                    Text(text = movie.releaseDate)
                 }
                 Row {
                     Icon(Icons.Default.FavoriteBorder, contentDescription = "", tint = Color.Red)
                     Icon(Icons.Default.Share, contentDescription = "", modifier = Modifier.offset(x = 40.dp), tint = Color.Red)
                 }
-            }
-
-            Column(
-                modifier = Modifier.offset(x = 8.dp, y = 60.dp)
-            ) {
-                OutlinedButton(
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
-                        contentColor = Color.Black)
-                ) {
-                    Icon(Icons.Default.DateRange, contentDescription = "")
-                    Text(
-                        text = "11-12-2024"
-                    )
-                }
-
             }
         }
 

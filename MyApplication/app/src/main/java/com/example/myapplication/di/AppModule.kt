@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import com.example.myapplication.data.AppDatabase
 import com.example.myapplication.data.center.CenterRepository
 import com.example.myapplication.data.center.CenterRepositoryImpl
+import com.example.myapplication.data.movie.MovieRepository
+import com.example.myapplication.data.movie.MovieRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +36,11 @@ object AppModule {
     @Singleton
     fun provideCenterRepository(appDatabase: AppDatabase) : CenterRepository {
         return CenterRepositoryImpl(appDatabase.centerDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(appDatabase: AppDatabase) : MovieRepository {
+        return MovieRepositoryImpl(appDatabase.movieDao)
     }
 }

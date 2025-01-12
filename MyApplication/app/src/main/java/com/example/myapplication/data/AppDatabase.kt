@@ -6,11 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.myapplication.data.center.Center
 import com.example.myapplication.data.center.CenterDao
+import com.example.myapplication.data.movie.Movie
+import com.example.myapplication.data.movie.MovieDao
 import com.example.myapplication.data.user.UserInfo
 
-@Database(entities = [Center::class,UserInfo::class], version = 2)
-abstract class AppDatabase: RoomDatabase() {
+@Database(entities = [Center::class, UserInfo::class, Movie::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
     abstract val centerDao: CenterDao
+    abstract val movieDao: MovieDao
 
     companion object {
         @Volatile
@@ -24,6 +27,7 @@ abstract class AppDatabase: RoomDatabase() {
                         AppDatabase::class.java,
                         "movies_database"
                     )
+                        .createFromAsset("database/movies.db")
                         .fallbackToDestructiveMigration()
                         .build()
                     INSTANCE = instance

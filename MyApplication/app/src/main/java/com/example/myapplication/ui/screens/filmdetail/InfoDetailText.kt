@@ -10,41 +10,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.data.movie.Movie
 
 @Composable
-fun InfoDetailText() {
+fun InfoDetailText(movie: Movie) {
     Column (
         modifier = Modifier.fillMaxWidth(1f).fillMaxHeight(0.25f)
     ) {
         Row (
             modifier = Modifier.offset(x = 8.dp)
         ) {
-            Text(text = "Kiem duyet", fontWeight = FontWeight.Bold)
-            Text(text = "Phim duoc phep chieu", modifier = Modifier.offset(x = 8.dp))
-        }
-        Row (
-            modifier = Modifier.offset(x = 8.dp)
-        ) {
             Text(text = "The loai", fontWeight = FontWeight.Bold)
-            Text(text = "Hanh dong", modifier = Modifier.offset(x = 8.dp))
+            Text(text = movie.genre, modifier = Modifier.offset(x = 8.dp))
         }
         Row (
             modifier = Modifier.offset(x = 8.dp)
         ) {
             Text(text = "Dao dien", fontWeight = FontWeight.Bold)
-            Text(text = "Jacky Chan", modifier = Modifier.offset(x = 8.dp))
+            Text(text = movie.director, modifier = Modifier.offset(x = 8.dp))
         }
         Row (
             modifier = Modifier.offset(x = 8.dp)
         ) {
             Text(text = "Dien vien", fontWeight = FontWeight.Bold)
-            Text(text = "Tony Jae", modifier = Modifier.offset(x = 8.dp))
-        }
-        Row (
-            modifier = Modifier.offset(x = 8.dp)
-        ) {
-            Text(text = "Ngon ngu", fontWeight = FontWeight.Bold)
-            Text(text = "Tieng Viet", modifier = Modifier.offset(x = 8.dp))
+            Text(text = movie.actors, modifier = Modifier.offset(x = 8.dp))
         }
     }
 }
