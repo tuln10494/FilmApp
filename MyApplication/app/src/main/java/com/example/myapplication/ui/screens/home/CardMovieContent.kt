@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.screens.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.lerp
 import com.example.myapplication.data.movie.Movie
 import kotlin.math.absoluteValue
 
+@SuppressLint("DiscouragedApi")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CardMovieContent(
@@ -34,7 +36,7 @@ fun CardMovieContent(
     val pageOffset = (pagerState.currentPage - index) + pagerState.currentPageOffsetFraction
     val context = LocalContext.current
     val resourceId = context.resources.getIdentifier(movie.imageName, "drawable", context.packageName)
-
+    println("TuLN5 ${movie.imageName}")
     Card(shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(Color.Transparent),
         modifier = Modifier

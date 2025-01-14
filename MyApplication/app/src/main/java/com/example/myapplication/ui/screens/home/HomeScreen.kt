@@ -18,17 +18,8 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
 import com.example.myapplication.Screen
-
-val images = listOf(
-    R.drawable.cd_poster,
-    R.drawable.run_now_poster,
-    R.drawable.spirited_away_poster,
-    R.drawable.sth3_poster,
-    R.drawable.whisper_of_the_heart_poster,
-)
 
 val voucherImage = listOf(
     R.drawable.voucher_1,
@@ -57,7 +48,7 @@ fun HomeScreen(
                 .build(),
             contentScale = ContentScale.FillBounds
         )
-        val movies = homeViewModel.movies.collectAsState(emptyList())
+        val movies = homeViewModel.movies.collectAsState()
         val pageState = rememberPagerState(initialPage = 1) { movies.value.size }
         val voucherPageState = rememberPagerState(initialPage = 1) { voucherImage.size }
 
@@ -73,6 +64,8 @@ fun HomeScreen(
             MovieCarousel(pageState = pageState, movies = movies.value, onMovieClick = {
                 navController.navigate("${Screen.MovieDetail.route}/$it")
             })
+            println("TuLN5 currentPage ${pageState.currentPage}")
+            println("TuLN5 targetPage ${pageState.targetPage}")
             MovieDescription()
         }
     }
