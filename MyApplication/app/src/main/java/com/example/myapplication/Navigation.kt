@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.screens.home.HomeScreen
 import com.example.myapplication.ui.screens.login.LoginScreen
+import com.example.myapplication.ui.screens.login.RegisterScreen
 import com.example.myapplication.ui.screens.seats.SeatsSelectionScreen
 
 //Create route for your screen here
@@ -23,7 +24,7 @@ sealed class Screen(val route: String) {
 fun Navigation() {
     val navController = rememberNavController()
     val mainViewModel: MainViewModel = hiltViewModel()
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.Register.route) {
         composable(Screen.Home.route) {
             HomeScreen(navController, hiltViewModel(), mainViewModel)
         }
@@ -36,6 +37,9 @@ fun Navigation() {
 //            val homeViewModel = hiltViewModel<HomeViewModel>(parentEntry)
 
             LoginScreen(navController, hiltViewModel())
+        }
+        composable(Screen.Register.route){
+            RegisterScreen()
         }
         composable(Screen.SeatsSelection.route) {
             SeatsSelectionScreen()
