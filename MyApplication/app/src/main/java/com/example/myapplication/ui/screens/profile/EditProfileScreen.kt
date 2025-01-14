@@ -3,12 +3,10 @@ package com.example.myapplication.ui.screens.profile
 import android.app.DatePickerDialog
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,9 +21,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -36,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,19 +38,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.myapplication.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,14 +58,14 @@ fun EditProfileScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD3D3C5))
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
         // Top Bar
         TopAppBar(
-            title = { Text("Thông tin Tài khoản", color = Color.Black) },
+            title = { Text(text = stringResource(R.string.account_info), color = MaterialTheme.colorScheme.onSecondary) },
             navigationIcon = {
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.Black)
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = MaterialTheme.colorScheme.onSecondary)
                 }
             },
         )
@@ -130,19 +124,19 @@ fun UserInfoScreen() {
             .fillMaxSize(),
     ) {
 
-        SectionHeader(title = "TÀI KHOẢN CỦA TÔI LÀ...")
+        SectionHeader(title = stringResource(R.string.my_account_is))
         InfoRow(label = "qua*************com", "")
-        SectionHeader(title = "THÔNG TIN THÊM")
+        SectionHeader(title = stringResource(R.string.more_info))
         //Name
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(onClick = { focusManager.clearFocus() })
-                .background(color = Color.White)
+                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         ) {
             Text(
-                text = "Họ tên",
+                text = stringResource(R.string.full_name),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -150,7 +144,9 @@ fun UserInfoScreen() {
                 BasicTextField(
                     value = name,
                     onValueChange = { name = it },
-                    modifier = Modifier.weight(1f).focusRequester(focusRequester),
+                    modifier = Modifier
+                        .weight(1f)
+                        .focusRequester(focusRequester),
                     singleLine = true,
                     textStyle = MaterialTheme.typography.bodyMedium.copy(
                         textAlign = TextAlign.End
@@ -174,7 +170,7 @@ fun UserInfoScreen() {
                 )
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         //Date
         Row(
             modifier = Modifier
@@ -184,7 +180,7 @@ fun UserInfoScreen() {
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         ) {
             Text(
-                text = "Ngày sinh",
+                text = stringResource(R.string.birthday),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -192,7 +188,8 @@ fun UserInfoScreen() {
                 text = dateOfBirth,
                 style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.End),
                 modifier = Modifier
-                    .weight(1f).focusRequester(focusRequester)
+                    .weight(1f)
+                    .focusRequester(focusRequester)
                     .clickable {
                         focusManager.clearFocus()
                         val datePicker = DatePickerDialog(
@@ -212,17 +209,17 @@ fun UserInfoScreen() {
                 focusRequester.requestFocus()
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         //Gene
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color.White)
+                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .clickable(onClick = { focusManager.clearFocus() })
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp)
         ) {
             Text(
-                text = "Giới tính",
+                text = stringResource(R.string.gender),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -231,7 +228,8 @@ fun UserInfoScreen() {
                     text = gender,
                     style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.End),
                     modifier = Modifier
-                        .wrapContentWidth().focusRequester(focusRequester)
+                        .wrapContentWidth()
+                        .focusRequester(focusRequester)
                         .clickable {
                             focusManager.clearFocus()
                             expandedGender = true
@@ -247,17 +245,17 @@ fun UserInfoScreen() {
                         onDismissRequest = { expandedGender = false }
                     ) {
                         DropdownMenuItem(onClick = {
-                            gender = "Nam"
+                            gender = context.getString(R.string.man)
                             expandedGender = false
-                        }, text = { Text("Nam") })
+                        }, text = { Text(stringResource(R.string.man)) })
                         DropdownMenuItem(onClick = {
-                            gender = "Nữ"
+                            gender = context.getString(R.string.woman)
                             expandedGender = false
-                        }, text = { Text("Nữ") })
+                        }, text = { Text(stringResource(R.string.woman)) })
                         DropdownMenuItem(onClick = {
-                            gender = "Không tiết lộ"
+                            gender = context.getString(R.string.undisclosed)
                             expandedGender = false
-                        }, text = { Text("Không tiết lộ") })
+                        }, text = { Text(stringResource(R.string.undisclosed)) })
                     }
                 }
                 LaunchedEffect(Unit) {
@@ -266,18 +264,18 @@ fun UserInfoScreen() {
 
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
         //Cinema
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color.White)
+                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .clickable(onClick = { focusManager.clearFocus() })
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp)
         ) {
             Text(
-                text = "Rạp yêu thích",
+                text = stringResource(R.string.favoriteCinema),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -286,7 +284,8 @@ fun UserInfoScreen() {
                     text = favoriteCinema,
                     style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.End),
                     modifier = Modifier
-                        .wrapContentWidth().focusRequester(focusRequester)
+                        .wrapContentWidth()
+                        .focusRequester(focusRequester)
                         .clickable {
                             focusManager.clearFocus()
                             expandedCinema = true
@@ -315,18 +314,18 @@ fun UserInfoScreen() {
 
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
-        SectionHeader(title = "LIÊN HỆ")
+        SectionHeader(title = stringResource(R.string.contact))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color.White)
+                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .clickable(onClick = { focusManager.clearFocus() })
                 .padding(vertical = 8.dp, horizontal = 16.dp)
         ) {
             Text(
-                text = "SĐT",
+                text = stringResource(R.string.phone),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -334,7 +333,9 @@ fun UserInfoScreen() {
                 BasicTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    modifier = Modifier.weight(1f).focusRequester(focusRequester),
+                    modifier = Modifier
+                        .weight(1f)
+                        .focusRequester(focusRequester),
                     singleLine = true,
                     textStyle = MaterialTheme.typography.bodyMedium.copy(
                         textAlign = TextAlign.End
@@ -358,17 +359,17 @@ fun UserInfoScreen() {
                 )
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(onClick = { focusManager.clearFocus() })
-                .background(color = Color.White)
+                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp)
         ) {
             Text(
-                text = "Tỉnh/Thành phố",
+                text = stringResource(R.string.province),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -377,9 +378,9 @@ fun UserInfoScreen() {
                     text = province,
                     style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.End),
                     modifier = Modifier
-                        .wrapContentWidth().focusRequester(focusRequester)
+                        .wrapContentWidth()
+                        .focusRequester(focusRequester)
                         .clickable {
-                            focusManager.clearFocus()
                             expandedProvince = true
                         }
                 )
@@ -406,16 +407,16 @@ fun UserInfoScreen() {
 
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color.White)
+                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .clickable(onClick = { focusManager.clearFocus() })
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp)
         ) {
             Text(
-                text = "Huyện/Quận",
+                text = stringResource(R.string.district),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -424,7 +425,8 @@ fun UserInfoScreen() {
                     text = district,
                     style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.End),
                     modifier = Modifier
-                        .wrapContentWidth().focusRequester(focusRequester)
+                        .wrapContentWidth()
+                        .focusRequester(focusRequester)
                         .clickable { expandedDistrict = true }
                 )
                 IconButton(modifier = Modifier.size(20.dp), onClick = { expandedDistrict = true }) {
@@ -447,7 +449,7 @@ fun UserInfoScreen() {
 
             }
         }
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
     }
 }
@@ -459,7 +461,7 @@ fun SectionHeader(title: String) {
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
-        Text(title, color = Color.Gray, style = MaterialTheme.typography.bodyLarge)
+        Text(title, color = MaterialTheme.colorScheme.onTertiaryContainer, style = MaterialTheme.typography.bodyLarge)
     }
 }
 
@@ -468,7 +470,7 @@ fun InfoRow(label: String, value: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color.White)
+            .background(color = MaterialTheme.colorScheme.onPrimary)
             .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         Text(
@@ -483,14 +485,14 @@ fun InfoRow(label: String, value: String) {
             textAlign = TextAlign.End
         )
     }
-    Divider(color = Color.LightGray, thickness = 1.dp)
+    Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 }
 
 @Composable
 fun AgreementSection() {
     Text(
-        text = "Khi đăng ký, tôi đã xem xét và đồng ý với Điều Khoản Sử Dụng và Chính Sách Bảo Mật của CGV Việt Nam.",
-        color = Color.Gray,
+        text = stringResource(R.string.policy),
+        color = MaterialTheme.colorScheme.onTertiaryContainer,
         style = MaterialTheme.typography.bodyLarge,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth()
@@ -509,13 +511,13 @@ fun ActionButtons() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onPrimaryContainer)
         ) {
-            Text("Cập nhật thông tin", color = Color.White)
+            Text(stringResource(R.string.update_info), color =MaterialTheme.colorScheme.onPrimary)
         }
         Text(
-            text = "Xóa tài khoản",
-            color = Color.Red,
+            text = stringResource(R.string.delete_account),
+            color =  MaterialTheme.colorScheme.onPrimaryContainer,
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier

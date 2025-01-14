@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="account_info">Thông tin Tài khoản</string>
+    <string name="my_account_is">TÀI KHOẢN CỦA TÔI LÀ...</string>
+    <string name="more_info">THÔNG TIN THÊM</string>
+    <string name="full_name">Họ tên</string>
+    <string name="birthday">Ngày sinh</string>
+    <string name="gender">Giới tính</string>
+    <string name="man">Nam</string>
+    <string name="woman">Nữ</string>
+    <string name="undisclosed">Không tiết lộ</string>
+    <string name="favoriteCinema">Rạp yêu thích</string>
+    <string name="contact">LIÊN HỆ</string>
+    <string name="phone">SĐT</string>
+    <string name="province">Tỉnh/Thành phố</string>
+    <string name="district">Huyện/Quận</string>
+    <string name="policy">Khi đăng ký, tôi đã xem xét và đồng ý với Điều Khoản Sử Dụng và Chính Sách Bảo Mật của CGV Việt Nam.</string>
+    <string name="update_info">Cập nhật thông tin</string>
+    <string name="delete_account">Xóa tài khoản</string>
+    <string name="cgv_member">Thành viên CGV</string>
+    <string name="resource_image">image/*</string>
+    <string name="reset_password">Đổi mật khẩu</string>
+    <string name="set_up_payment_password">Cài đặt mật mã thanh toán</string>
+    <string name="card_membership">Thẻ thành viên</string>
+    <string name="Point">Điểm</string>
+    <string name="card_giftcard">Thẻ Quà tặng | Voucher | Coupon</string>
+    <string name="history">Lịch sử</string>
+    <string name="member">MEMBER</string>
+    <string name="vip">VIP</string>
+    <string name="vvip">VVIP</string>
+    <string name="zero">0</string>
+    <string name="four_millions">4.000.000</string>
+    <string name="eight_millions">8.000.000</string>
 </resources>

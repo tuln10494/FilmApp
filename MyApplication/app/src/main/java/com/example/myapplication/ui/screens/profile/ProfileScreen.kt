@@ -33,6 +33,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,7 +47,9 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,11 +66,16 @@ fun ProfileScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD5CCB6))
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
         // Top AppBar
         TopAppBar(
-            title = { Text("Thành viên CGV", color = Color.Black) },
+            title = {
+                Text(
+                    stringResource(R.string.cgv_member),
+                    color = MaterialTheme.colorScheme.onSecondary
+                )
+            },
             navigationIcon = {
                 IconButton(onClick = { /* Handle back action */ }) {
                     Icon(Icons.Default.ArrowBack, contentDescription = null)
@@ -74,7 +83,8 @@ fun ProfileScreen(navController: NavController) {
             },
             actions = {
                 Icon(Icons.Default.Menu, contentDescription = null)
-            }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
+            },
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.onPrimary)
         )
 
         // Profile Section
@@ -94,12 +104,11 @@ fun ProfileSection() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .padding(16.dp)
     ) {
         var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
         val context = LocalContext.current
-
         // Launcher để chọn ảnh từ thư viện
         val imagePickerLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent()
@@ -119,7 +128,7 @@ fun ProfileSection() {
                 modifier = Modifier
                     .size(100.dp)
                     .clip(CircleShape)
-                    .border(2.dp, Color.Gray, CircleShape),
+                    .border(2.dp, MaterialTheme.colorScheme.onTertiaryContainer, CircleShape),
                 contentScale = ContentScale.Crop
             )
 
@@ -129,11 +138,11 @@ fun ProfileSection() {
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
-                    .background(Color.White, CircleShape)
+                    .background(MaterialTheme.colorScheme.onPrimary, CircleShape)
                     .padding(4.dp)
                     .clickable {
                         // Khi nhấn vào, mở thư viện chọn ảnh
-                        imagePickerLauncher.launch("image/*")
+                        imagePickerLauncher.launch(context.getString(R.string.resource_image))
                     }
             )
         }
@@ -148,72 +157,72 @@ fun ProfileSection() {
 fun OptionsList(navController: NavController) {
 
     Column(
-        modifier = Modifier.background(Color.White)
+        modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary)
     ) {
 
         OptionItem(
-            title = "Thông tin Tài khoản",
+            title = stringResource(R.string.account_info),
             icon1 = painterResource(R.drawable.ic_account_box),
             icon2 = painterResource(R.drawable.ic_next),
-            onClick={ navController.navigate(Screen.EditProfile.route) }
+            onClick = { navController.navigate(Screen.EditProfile.route) }
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         OptionItem(
-            title = "Đổi mật khẩu",
+            title = stringResource(R.string.reset_password),
             icon1 = painterResource(R.drawable.ic_lock),
             icon2 = painterResource(R.drawable.ic_next),
             {},
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         OptionItem(
-            title = "Cài đặt mật mã thanh toán",
+            title = stringResource(R.string.set_up_payment_password),
             icon1 = painterResource(R.drawable.ic_dialpad),
             icon2 = painterResource(R.drawable.ic_next),
             {},
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         OptionItem(
-            title = "Thẻ thành viên",
+            title = stringResource(R.string.card_membership),
             icon1 = painterResource(R.drawable.ic_card_membership),
             icon2 = painterResource(R.drawable.ic_next),
             {},
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
     }
     Spacer(modifier = Modifier.height(32.dp))
     Column(
-        modifier = Modifier.background(Color.White)
+        modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary)
     ) {
 
         OptionItem(
-            title = "Điểm",
+            title = stringResource(R.string.Point),
             icon1 = painterResource(R.drawable.ic_diamond),
             icon2 = painterResource(R.drawable.ic_next),
             {},
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         OptionItem(
-            title = "Thẻ Quà tặng | Voucher | Coupon",
+            title = stringResource(R.string.card_giftcard),
             icon1 = painterResource(R.drawable.ic_card_giftcard),
             icon2 = painterResource(R.drawable.ic_next),
             {},
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
     }
     Spacer(modifier = Modifier.height(32.dp))
     Column(
-        modifier = Modifier.background(Color.White)
+        modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary)
     ) {
 
         OptionItem(
-            title = "Lịch sử",
+            title = stringResource(R.string.history),
             icon1 = painterResource(R.drawable.ic_history),
             icon2 = painterResource(R.drawable.ic_next),
             {},
         )
-        Divider(color = Color.LightGray, thickness = 1.dp)
+        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
 
     }
 }
@@ -227,7 +236,7 @@ fun OptionItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable (onClick=onClick )
+            .clickable(onClick = onClick)
             .padding(16.dp)
     ) {
         Icon(icon1, contentDescription = null, tint = Color.Red)
@@ -237,7 +246,7 @@ fun OptionItem(
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.weight(1f)
         )
-        Icon(icon2, contentDescription = null, tint = Color(0xFFD5CCB6))
+        Icon(icon2, contentDescription = null, tint = MaterialTheme.colorScheme.background)
 
     }
 }
@@ -247,7 +256,7 @@ fun MembershipProgressBar() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -258,9 +267,9 @@ fun MembershipProgressBar() {
                 .padding(bottom = 2.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            MembershipMarker("MEMBER")
-            MembershipMarker("VIP")
-            MembershipMarker("VVIP")
+            MembershipMarker(stringResource(R.string.member))
+            MembershipMarker(stringResource(R.string.vip))
+            MembershipMarker(stringResource(R.string.vvip))
         }
 
         // Progress Bar
@@ -269,7 +278,7 @@ fun MembershipProgressBar() {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .height(8.dp)
-                .background(Color(0xFFD3D3D3), shape = RoundedCornerShape(4.dp))
+                .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(4.dp))
         )
 
         // Values Row
@@ -279,47 +288,54 @@ fun MembershipProgressBar() {
                 .padding(top = 8.dp, start = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("0", style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.zero), style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.width(46.dp))
-            Text("4.000.000", style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.four_millions), style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.width(1.dp)) // Empty space for alignment
-            Text("8.000.000", style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.eight_millions), style = MaterialTheme.typography.bodyMedium)
         }
     }
 }
 
 @Composable
 fun MembershipMarker(label: String) {
+    val density = LocalDensity.current
+    val trianglePath = remember {
+        Path().apply {
+            with(density) {
+                moveTo(4.dp.toPx(), 8.dp.toPx())
+                lineTo(0f, 0f)
+                lineTo(8.dp.toPx(), 0f)
+                close()
+            }
+        }
+    }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .border(2.dp, Color.Gray, CircleShape),
+                .border(2.dp, MaterialTheme.colorScheme.onTertiaryContainer, CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onTertiaryContainer,
                     fontSize = 8.sp
                 ),
                 textAlign = TextAlign.Center,
             )
         }
 
+
         Canvas(modifier = Modifier.size(8.dp)) {
-            val trianglePath = Path().apply {
-                moveTo(size.width / 2, size.height)
-                lineTo(0f, 0f)
-                lineTo(size.width, 0f)
-                close()
-            }
             drawPath(
                 path = trianglePath,
                 color = Color.Gray
             )
         }
+
     }
 }
 
