@@ -51,10 +51,34 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.data.user.UserInfo
+import com.example.myapplication.ui.screens.login.UserFormState
+import com.example.myapplication.ui.screens.login.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditProfileScreen(navController: NavController) {
+fun EditProfileScreen(navController: NavController, userId: Int, userViewModel: UserViewModel) {
+    var userInfo by remember { mutableStateOf<UserInfo?>(null) }
+    val userFormState = remember { mutableStateOf(UserFormState()) }
+
+    LaunchedEffect(userId) {
+        userViewModel.getUserById(userId) { user ->
+            userInfo = user
+            user?.let {
+                userFormState.value = UserFormState(
+                    name = it.userName,
+                    phoneNumber = it.userPhoneNumber,
+                    email = it.email,
+                    dateOfBirth = it.userBirthday,
+                    gender = if (it.userGender == 0) "Male" else "Female",
+                    region = it.userProvince,
+                    district = it.userDistrict,
+                    preferTheater = it.userFavoriteCinema
+                )
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,9 +99,8 @@ fun EditProfileScreen(navController: NavController) {
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
         ) {
-
             // Additional Information Section
-            UserInfoScreen()
+            UserInfoScreen(userFormState.value)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -91,28 +114,27 @@ fun EditProfileScreen(navController: NavController) {
         }
     }
 }
-
 @Composable
-fun UserInfoScreen() {
-    var name by remember { mutableStateOf("Trần Huy") }
+fun UserInfoScreen(userFormState: UserFormState) {
+    var name by remember { mutableStateOf(userFormState.name) }
     var isEditingName by remember { mutableStateOf(false) }
 
-    var phone by remember { mutableStateOf("0123456789") }
+    var phone by remember { mutableStateOf(userFormState.phoneNumber) }
     var isEditingPhone by remember { mutableStateOf(false) }
 
-    var dateOfBirth by remember { mutableStateOf("Chọn ngày sinh") }
+    var dateOfBirth by remember { mutableStateOf(userFormState.dateOfBirth) }
     val context = LocalContext.current
 
-    var gender by remember { mutableStateOf("Chọn giới tính") }
+    var gender by remember { mutableStateOf(userFormState.gender) }
     var expandedGender by remember { mutableStateOf(false) }
 
-    var favoriteCinema by remember { mutableStateOf("Chọn rạp yêu thích") }
+    var favoriteCinema by remember { mutableStateOf(userFormState.preferTheater) }
     var expandedCinema by remember { mutableStateOf(false) }
     val cinemaList = listOf("Rạp A", "Rạp B", "Rạp C")
-    var province by remember { mutableStateOf("Chọn tỉnh/thành phố") }
+    var province by remember { mutableStateOf(userFormState.region) }
     var expandedProvince by remember { mutableStateOf(false) }
     val provinceList = listOf("Hà Nội", "Phú Thọ")
-    var district by remember { mutableStateOf("Chọn huyện/quận") }
+    var district by remember { mutableStateOf(userFormState.district) }
     var expandedDistrict by remember { mutableStateOf(false) }
     val districtList = listOf("quận Cầu Giấy", "quận Nam Từ Liêm")
     val focusManager = LocalFocusManager.current
@@ -123,11 +145,10 @@ fun UserInfoScreen() {
             .clickable(onClick = { focusManager.clearFocus() })
             .fillMaxSize(),
     ) {
-
         SectionHeader(title = stringResource(R.string.my_account_is))
-        InfoRow(label = "qua*************com", "")
+        InfoRow(label = userFormState.email, "")
         SectionHeader(title = stringResource(R.string.more_info))
-        //Name
+        // Name
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -153,8 +174,7 @@ fun UserInfoScreen() {
                     ),
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = { isEditingName = !isEditingName }),
-
-                    )
+                )
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }
@@ -171,7 +191,7 @@ fun UserInfoScreen() {
             }
         }
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
-        //Date
+        // Date of Birth
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -202,7 +222,6 @@ fun UserInfoScreen() {
                             1 // Default day
                         )
                         datePicker.show()
-
                     }
             )
             LaunchedEffect(Unit) {
@@ -210,7 +229,7 @@ fun UserInfoScreen() {
             }
         }
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
-        //Gene
+        // Gender
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -261,12 +280,10 @@ fun UserInfoScreen() {
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }
-
             }
         }
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
-
-        //Cinema
+        // Favorite Cinema
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -311,61 +328,15 @@ fun UserInfoScreen() {
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }
-
             }
         }
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
-
-        SectionHeader(title = stringResource(R.string.contact))
+        // Province
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(color = MaterialTheme.colorScheme.onPrimary)
                 .clickable(onClick = { focusManager.clearFocus() })
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.phone),
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.bodyMedium
-            )
-            if (isEditingPhone) {
-                BasicTextField(
-                    value = phone,
-                    onValueChange = { phone = it },
-                    modifier = Modifier
-                        .weight(1f)
-                        .focusRequester(focusRequester),
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(
-                        textAlign = TextAlign.End
-                    ),
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { isEditingPhone = false }),
-
-                    )
-                LaunchedEffect(Unit) {
-                    focusRequester.requestFocus()
-                }
-            } else {
-                Text(
-                    text = phone,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        textAlign = TextAlign.End
-                    ),
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable { isEditingPhone = true }
-                )
-            }
-        }
-        Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { focusManager.clearFocus() })
-                .background(color = MaterialTheme.colorScheme.onPrimary)
                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 8.dp)
         ) {
             Text(
@@ -404,10 +375,10 @@ fun UserInfoScreen() {
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }
-
             }
         }
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
+        // District
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -446,14 +417,11 @@ fun UserInfoScreen() {
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
                 }
-
             }
         }
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
-
     }
 }
-
 @Composable
 fun SectionHeader(title: String) {
     Box(
@@ -527,10 +495,4 @@ fun ActionButtons() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun EditProfileScreenPreview() {
-    EditProfileScreen(
-        navController = TODO()
-    )
-}
+

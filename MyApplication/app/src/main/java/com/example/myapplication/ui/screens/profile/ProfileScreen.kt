@@ -58,11 +58,21 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.R
 import com.example.myapplication.Screen
+import com.example.myapplication.data.user.UserInfo
+import com.example.myapplication.ui.screens.login.UserViewModel
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, userId: Int, userViewModel: UserViewModel) {
+    var userInfo by remember { mutableStateOf<UserInfo?>(null) }
+
+    LaunchedEffect(userId) {
+        userViewModel.getUserById(userId) { user ->
+            userInfo = user
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -88,18 +98,18 @@ fun ProfileScreen(navController: NavController) {
         )
 
         // Profile Section
-        ProfileSection()
+        userInfo?.let { ProfileSection(userInfo = it) }
 
         // Membership Progress
         MembershipProgressBar()
 
         // Options List
-        OptionsList(navController)
+        OptionsList(navController,userId)
     }
 }
 
 @Composable
-fun ProfileSection() {
+fun ProfileSection(userInfo: UserInfo) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -109,7 +119,6 @@ fun ProfileSection() {
     ) {
         var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
         val context = LocalContext.current
-        // Launcher để chọn ảnh từ thư viện
         val imagePickerLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetContent()
         ) { uri: Uri? ->
@@ -117,12 +126,11 @@ fun ProfileSection() {
         }
 
         Box(contentAlignment = Alignment.BottomEnd) {
-            // Hiển thị ảnh đại diện
             Image(
                 painter = if (selectedImageUri != null) {
                     rememberAsyncImagePainter(selectedImageUri) // Sử dụng ảnh đã chọn
                 } else {
-                    painterResource(R.drawable.ic_person) // Ảnh mặc định
+                    rememberAsyncImagePainter(userInfo.userImage) // Ảnh từ database
                 },
                 contentDescription = null,
                 modifier = Modifier
@@ -132,7 +140,6 @@ fun ProfileSection() {
                 contentScale = ContentScale.Crop
             )
 
-            // Nút camera để chọn ảnh
             Icon(
                 painter = painterResource(R.drawable.ic_camera),
                 contentDescription = null,
@@ -141,20 +148,78 @@ fun ProfileSection() {
                     .background(MaterialTheme.colorScheme.onPrimary, CircleShape)
                     .padding(4.dp)
                     .clickable {
-                        // Khi nhấn vào, mở thư viện chọn ảnh
                         imagePickerLauncher.launch(context.getString(R.string.resource_image))
                     }
             )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Trần Quang Huy", style = MaterialTheme.typography.headlineMedium)
+        Text(text = userInfo.userName, style = MaterialTheme.typography.headlineMedium)
     }
 }
 
+@Composable
+fun ProfileSection(userInfo: UserInfo, userViewModel: UserViewModel) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.onPrimary)
+            .padding(16.dp)
+    ) {
+        var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+        val context = LocalContext.current
+        val imagePickerLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.GetContent()
+        ) { uri: Uri? ->
+            selectedImageUri = uri
+            uri?.let {
+                // Update the user image in the database
+                userViewModel.updateUserImage(userInfo.id, it.toString()) { success ->
+                    if (success) {
+                        // Handle success (e.g., show a success message)
+                    } else {
+                        // Handle failure (e.g., show an error message)
+                    }
+                }
+            }
+        }
+
+        Box(contentAlignment = Alignment.BottomEnd) {
+            Image(
+                painter = if (selectedImageUri != null) {
+                    rememberAsyncImagePainter(selectedImageUri) // Use the selected image
+                } else {
+                    rememberAsyncImagePainter(userInfo.userImage) // Use the image from the database
+                },
+                contentDescription = null,
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
+                    .border(2.dp, MaterialTheme.colorScheme.onTertiaryContainer, CircleShape),
+                contentScale = ContentScale.Crop
+            )
+
+            Icon(
+                painter = painterResource(R.drawable.ic_camera),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp)
+                    .background(MaterialTheme.colorScheme.onPrimary, CircleShape)
+                    .padding(4.dp)
+                    .clickable {
+                        imagePickerLauncher.launch(context.getString(R.string.resource_image))
+                    }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = userInfo.userName, style = MaterialTheme.typography.headlineMedium)
+    }
+}
 
 @Composable
-fun OptionsList(navController: NavController) {
+fun OptionsList(navController: NavController,userId: Int) {
 
     Column(
         modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary)
@@ -164,7 +229,7 @@ fun OptionsList(navController: NavController) {
             title = stringResource(R.string.account_info),
             icon1 = painterResource(R.drawable.ic_account_box),
             icon2 = painterResource(R.drawable.ic_next),
-            onClick = { navController.navigate(Screen.EditProfile.route) }
+            onClick = { navController.navigate("${ Screen.EditProfile.route }/$userId") }
         )
         Divider(color = MaterialTheme.colorScheme.onTertiary, thickness = 1.dp)
         OptionItem(
@@ -340,10 +405,4 @@ fun MembershipMarker(label: String) {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun ProfileScreenPreview() {
-    ProfileScreen(
-        navController = TODO()
-    )
-}
+

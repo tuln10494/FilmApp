@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.screens.login
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -149,9 +150,10 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
 
                         if (!hasError) {
                             userViewModel.login(email, password) { userId ->
+                                Log.d("LoginScreen", "User ID: $userId")
                                 if (userId != null) {
-                                    navController.navigate(Screen.Home.route) {
-//                                        popUpTo(Screen.Splash.route) { inclusive = true }
+                                    navController.navigate("${ Screen.Home.route }/$userId") {
+                                        popUpTo(Screen.Login.route) { inclusive = true }
                                     }
                                 } else {
                                     generalErrorMessage = "Email hoặc password không đúng"

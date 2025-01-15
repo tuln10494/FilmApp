@@ -8,12 +8,14 @@ import com.example.myapplication.data.center.Center
 import com.example.myapplication.data.center.CenterDao
 import com.example.myapplication.data.movie.Movie
 import com.example.myapplication.data.movie.MovieDao
+import com.example.myapplication.data.user.UserDao
 import com.example.myapplication.data.user.UserInfo
 
 @Database(entities = [Center::class, UserInfo::class, Movie::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract val centerDao: CenterDao
     abstract val movieDao: MovieDao
+    abstract val userDao: UserDao
 
     companion object {
         @Volatile

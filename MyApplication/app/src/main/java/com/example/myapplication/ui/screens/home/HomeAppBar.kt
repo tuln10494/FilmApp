@@ -20,7 +20,7 @@ import com.example.myapplication.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeAppBar(navController: NavController) {
+fun HomeAppBar(navController: NavController,userId:Int) {
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     CenterAlignedTopAppBar(
@@ -44,7 +44,7 @@ fun HomeAppBar(navController: NavController) {
             }
         },
         actions = {
-            IconButton(onClick = { navController.navigate(Screen.Profile.route) }) {
+            IconButton(onClick = { navController.navigate("${ Screen.Profile.route }/$userId") }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Localized description"

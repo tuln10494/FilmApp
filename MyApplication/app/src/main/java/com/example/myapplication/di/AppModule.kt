@@ -8,6 +8,8 @@ import com.example.myapplication.data.center.CenterRepository
 import com.example.myapplication.data.center.CenterRepositoryImpl
 import com.example.myapplication.data.movie.MovieRepository
 import com.example.myapplication.data.movie.MovieRepositoryImpl
+import com.example.myapplication.data.user.UserRepository
+import com.example.myapplication.data.user.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,5 +44,11 @@ object AppModule {
     @Singleton
     fun provideMovieRepository(appDatabase: AppDatabase) : MovieRepository {
         return MovieRepositoryImpl(appDatabase.movieDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository( appDatabase: AppDatabase ): UserRepository {
+        return UserRepositoryImpl( appDatabase.userDao )
     }
 }

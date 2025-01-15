@@ -42,12 +42,13 @@ val voucherImage = listOf(
 @Composable
 fun HomeScreen(
     navController: NavHostController,
+    userId:Int,
     homeViewModel: HomeViewModel
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            HomeAppBar(navController)
+            HomeAppBar(navController,userId)
         },
     ) { innerPadding ->
         val painter = rememberAsyncImagePainter(

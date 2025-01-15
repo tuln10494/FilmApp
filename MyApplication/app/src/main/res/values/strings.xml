@@ -31,4 +31,22 @@
     <string name="zero">0</string>
     <string name="four_millions">4.000.000</string>
     <string name="eight_millions">8.000.000</string>
+    <string name="header_image_desc">Header Image</string>
+    <string name="name_label">Name *</string>
+    <string name="phone_number_label">Phone number *</string>
+    <string name="email_label">Email *</string>
+    <string name="password_label">Password *</string>
+    <string name="dob_label">Date of birth</string>
+    <string name="gender_label">Gender</string>
+    <string name="region_label">Region *</string>
+    <string name="district_label">District *</string>
+    <string name="prefer_theater_label">Prefer Theater *</string>
+    <string name="required_field_note">* Required field</string>
+    <string name="agreement1_text">By clicking the Register button below, I agree to allow CGV Vietnam to process my personal data in accordance with purposes that CGV Vietnam has announced in the Privacy Policy.</string>
+    <string name="agreement2_text">Personal information provided here is accurate and matches information in ID card and/or Birth Certificate. Also, the email provided here is accurate and under my sole control.</string>
+    <string name="agreement3_text">If the information does not match, change or update is not supported and you cannot receive Member Benefits.</string>
+    <string name="agreement4_text">I agree to the CGV’s Terms of Use.</string>
+    <string name="register_button">REGISTER</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="close">Close</string>
 </resources>

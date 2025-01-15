@@ -10,6 +10,8 @@ import androidx.navigation.navArgument
 import com.example.myapplication.ui.screens.home.HomeScreen
 import com.example.myapplication.ui.screens.filmdetail.MovieDetailScreen
 import com.example.myapplication.ui.screens.login.LoginScreen
+import com.example.myapplication.ui.screens.login.RegisterScreen
+import com.example.myapplication.ui.screens.login.UserViewModel
 import com.example.myapplication.ui.screens.seats.SeatsSelectionScreen
 import com.example.myapplication.ui.screens.profile.EditProfileScreen
 import com.example.myapplication.ui.screens.profile.ProfileScreen
@@ -31,15 +33,25 @@ sealed class Screen(val route: String) {
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
-        composable(Screen.Home.route) {
-            HomeScreen(navController, hiltViewModel())
+    NavHost(navController = navController, startDestination = Screen.Login.route) {
+
+        composable(
+            route = "${Screen.Home.route}/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getInt("userId") ?: 0
+            HomeScreen(navController,userId, hiltViewModel() )
         }
-        composable(Screen.Profile.route) {
-            ProfileScreen(navController)
+        composable("${ Screen.Profile.route }/{userId}", arguments = listOf(navArgument("userId") { type = NavType.IntType })) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getInt("userId") ?: 0
+            ProfileScreen(navController, userId, hiltViewModel())
         }
-        composable(Screen.EditProfile.route) {
-            EditProfileScreen(navController)
+        composable(Screen.Register.route){
+            RegisterScreen(navController,hiltViewModel())
+        }
+        composable("${ Screen.EditProfile.route }/{userId}", arguments = listOf(navArgument("userId") { type = NavType.IntType })) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getInt("userId") ?: 0
+            EditProfileScreen(navController, userId,hiltViewModel())
         }
         composable(Screen.Login.route) {
             LoginScreen(navController, hiltViewModel())
