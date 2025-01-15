@@ -6,27 +6,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-data class ListItem(val title: String, val content: String)
+import com.example.myapplication.models.ticket.Cinema
 
 @Composable
-fun ExpandableListItem(
-    item: ListItem,
+fun ExpandableCinemaListItem(
+    cinema: Cinema,
     isExpanded: Boolean,
     onToggleExpanded: () -> Unit,
-    onTimeSlotSelect: () -> Unit
+    onTimeSlotSelect: (String) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -40,9 +38,10 @@ fun ExpandableListItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = item.title,
+                    text = cinema.name,
                     modifier = Modifier.padding(start = 8.dp),
-                    style = MaterialTheme.typography.titleMedium)
+                    style = MaterialTheme.typography.titleMedium
+                )
                 Icon(
                     Icons.Default.KeyboardArrowDown,
                     contentDescription = "",
@@ -50,20 +49,15 @@ fun ExpandableListItem(
                 )
             }
             if (isExpanded) {
-                Row(
+                LazyRow(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.Start,
                 ) {
-                    OutlinedButton(
-                        onClick = {
-                            onTimeSlotSelect()
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.White,
-                            contentColor = Color.Black
+                    items(cinema.timeSlots) { timeSlot ->
+                        TimeSlot(
+                            onTimeSlotSelect = onTimeSlotSelect,
+                            time = timeSlot
                         )
-                    ) {
-                        Text(text = "11:00")
                     }
                 }
             }

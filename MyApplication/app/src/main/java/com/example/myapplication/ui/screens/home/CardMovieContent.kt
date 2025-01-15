@@ -31,7 +31,7 @@ fun CardMovieContent(
     index: Int,
     pagerState: PagerState,
     movie: Movie,
-    onMovieClick: (Int) -> Unit
+    onMovieClick: (Movie) -> Unit
 ) {
     val pageOffset = (pagerState.currentPage - index) + pagerState.currentPageOffsetFraction
     val context = LocalContext.current
@@ -41,7 +41,7 @@ fun CardMovieContent(
         colors = CardDefaults.cardColors(Color.Transparent),
         modifier = Modifier
             .clickable {
-                onMovieClick(movie.id)
+                onMovieClick(movie)
             }
             .padding(2.dp)
             .graphicsLayer {

@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.screens.home
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,8 +13,6 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,14 +31,6 @@ fun HomeAppBar(navController: NavController) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-        },
-        navigationIcon = {
-            IconButton(onClick = {  }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Localized description"
-                )
-            }
         },
         actions = {
             IconButton(onClick = { navController.navigate(Screen.Profile.route) }) {

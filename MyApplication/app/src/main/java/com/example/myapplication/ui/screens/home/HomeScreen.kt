@@ -20,6 +20,7 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.example.myapplication.R
 import com.example.myapplication.Screen
+import com.example.myapplication.ui.screens.shared.TicketBookingSharedViewModel
 
 val voucherImage = listOf(
     R.drawable.voucher_1,
@@ -33,7 +34,8 @@ val voucherImage = listOf(
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    sharedViewModel: TicketBookingSharedViewModel
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -61,11 +63,14 @@ fun HomeScreen(
         ) {
             VoucherCarousel(voucherPageState)
             MovieMenu()
-            MovieCarousel(pageState = pageState, movies = movies.value, onMovieClick = {
-                navController.navigate("${Screen.MovieDetail.route}/$it")
-            })
-            println("TuLN5 currentPage ${pageState.currentPage}")
-            println("TuLN5 targetPage ${pageState.targetPage}")
+            MovieCarousel(
+                pageState = pageState,
+                movies = movies.value,
+                onMovieClick = {
+                    sharedViewModel.setSelectedMovie(it)
+                    navController.navigate(Screen.MovieDetail.route)
+                }
+            )
             MovieDescription()
         }
     }
