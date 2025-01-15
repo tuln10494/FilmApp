@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,9 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import com.example.myapplication.data.movie.Movie
 
@@ -38,16 +37,14 @@ fun OverlappingImages(movie: Movie) {
         Image(
             painter = painterResource(id = R.drawable.cd_poster),
             contentDescription = "Image 1",
-            modifier = Modifier.fillMaxHeight(0.8f),
+            modifier = Modifier.fillMaxHeight(0.8f).fillMaxWidth(),
             contentScale = ContentScale.FillBounds
         )
 
         Text(
             text = movie.name,
             modifier = Modifier.offset(x = 120.dp, y = 150.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
+            style = MaterialTheme.typography.titleLarge,
         )
         Row(
             modifier = Modifier

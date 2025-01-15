@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,23 +29,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.R
 
 
 @Composable
 fun ScreenPaymentDetail(navController: NavController) {
-    TitlePay()
-    SummaryPay()
-    TicketInfo()
-    ExpandableDiscountList()
-    SummaryInfo()
-    PayButton()
+    Column {
+        TitlePay()
+        SummaryPay()
+        TicketInfo()
+        ExpandableDiscountList()
+        SummaryInfo()
+        PayButton()
+    }
 }
 
 @Composable
@@ -55,7 +55,7 @@ fun TitlePay() {
             .fillMaxWidth()
     ) {
         Icon(Icons.Default.ArrowBack, contentDescription = "",)
-        Text(text="Thanh Toan")
+        Text(text="Thanh Toan", style = MaterialTheme.typography.labelLarge)
     }
 }
 
@@ -78,15 +78,15 @@ fun SummaryPay() {
         Column (
             modifier = Modifier.padding(start = 6.dp)
         ) {
-            Text(text= "Movie Title", style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 15.sp))
-            Text(text = "Phim duoc phep pho bien den moi lua tuoi", style = TextStyle(fontStyle = FontStyle.Italic))
+            Text(text= "Movie Title", style = MaterialTheme.typography.titleLarge)
+            Text(text = "Phim duoc phep pho bien den moi lua tuoi", style = MaterialTheme.typography.bodyLarge.copy(fontStyle = FontStyle.Italic))
             Text(text= "Thu 4, 8 thang 1, 2025")
             Text(text = "17:00 - 19:00")
             Text(text= "Movie Title")
             Text(text = "CGV Indochina Plaza")
             Text(text = "Cinema 4")
             Text(text = "Seat: C4")
-            Text(text = "Tong thanh toan: 100.000", style = TextStyle(fontWeight = FontWeight.Bold), color = Color.Red)
+            Text(text = "Tong thanh toan: 100.000", style = MaterialTheme.typography.titleMedium.copy(color = Color.Red))
         }
     }
 }
@@ -170,8 +170,7 @@ fun ExpandableDiscountListItem(item: ListDiscountItem, isExpanded: Boolean, onTo
                 Text(
                     text = item.title,
                     modifier = Modifier.padding(start = 8.dp),
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                )
+                    style = MaterialTheme.typography.titleSmall)
                 Icon(
                     Icons.Default.KeyboardArrowDown,
                     contentDescription = "",
