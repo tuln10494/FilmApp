@@ -94,6 +94,7 @@ fun RegisterScreen() {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             Image(
                 painter = painterResource(id = R.drawable.login),
                 contentDescription = stringResource(R.string.header_image_desc),
@@ -102,6 +103,8 @@ fun RegisterScreen() {
             )
 
             Spacer(modifier = Modifier.height(16.dp))
+
+            // Register Form
 
             Column(
                 modifier = Modifier
@@ -153,6 +156,7 @@ fun RegisterScreen() {
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
+
                 // Date of Birth and Gender Fields
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -444,4 +448,5 @@ fun RegisterScreen() {
         )
     }
 }
+
 

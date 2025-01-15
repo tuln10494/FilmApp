@@ -53,7 +53,8 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
         ) {
             // Top Image Section
             Image(
-                painter = painterResource(id = R.drawable.logo_cgv),
+
+                painter = painterResource(id = R.drawable.logo_cgv), // Replace with your image resource
                 contentDescription = "Header Image",
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop
@@ -110,6 +111,10 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                     visualTransformation = if (isPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
                         IconButton(onClick = { isPasswordVisible.value = !isPasswordVisible.value }) {
+//                            Icon(
+//                                imageVector = if (isPasswordVisible.value) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+//                                contentDescription = null
+//                            )
                         }
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),

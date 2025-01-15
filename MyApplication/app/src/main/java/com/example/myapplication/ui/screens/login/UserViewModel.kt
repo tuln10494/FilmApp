@@ -18,14 +18,13 @@ class UserViewModel @Inject constructor() : ViewModel() {//private val userDao: 
         }
     }
 
-
-    fun register(email: String, password: String, onRegisterResult: (Long?) -> Unit) {
-        viewModelScope.launch {
-//            val newUser = User(email = email, password = password)
-//            userDao.insert(newUser)
+//    fun register(email: String, password: String, onRegisterResult: (Long?) -> Unit) {
+//        viewModelScope.launch {
+////            val newUser = User(email = email, password = password)
+////            userDao.insert(newUser)
 //            val insertedUser = userDao.getUserByEmailAndPassword(email, password)
 //            Log.d("User", "New user registered with ID: ${insertedUser?.id}")
 //            onRegisterResult(insertedUser?.id)
-        }
-    }
+//        }
+//    }
 }
