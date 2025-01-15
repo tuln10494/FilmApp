@@ -152,7 +152,7 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                             userViewModel.login(email, password) { userId ->
                                 if (userId != null) {
                                     navController.navigate(Screen.Home.route) {
-//                                        popUpTo(Screen.Splash.route) { inclusive = true }
+                                        popUpTo(Screen.Login.route) { inclusive = true }
                                     }
                                 } else {
                                     generalErrorMessage = "Email hoặc password không đúng"

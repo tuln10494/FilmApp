@@ -33,7 +33,7 @@ sealed class Screen(val route: String) {
 fun Navigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Register.route) {
         composable(Screen.Home.route) {
             HomeScreen(navController, hiltViewModel())
         }
@@ -45,6 +45,9 @@ fun Navigation() {
         }
         composable(Screen.Login.route) {
             LoginScreen(navController, hiltViewModel())
+        }
+        composable(Screen.Register.route){
+            RegisterScreen(navController,hiltViewModel())
         }
 
         composable(Screen.BookTicket.route) {

@@ -16,6 +16,12 @@ data class UserInfo(
     @ColumnInfo(name = "user_phone_number")
     val userPhoneNumber: String,
 
+    @ColumnInfo(name = "user_email")
+    val email: String,
+
+    @ColumnInfo(name = "user_password")
+    val passWord: String,
+
     @ColumnInfo(name = "user_birthday")
     val userBirthday: String,
 

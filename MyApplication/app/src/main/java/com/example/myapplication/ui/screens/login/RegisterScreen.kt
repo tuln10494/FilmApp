@@ -53,9 +53,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController: NavController, userViewModel: UserViewModel) {
     val context = LocalContext.current
     val userFormState = remember { mutableStateOf(UserFormState()) }
 
@@ -312,29 +313,33 @@ fun RegisterScreen() {
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
-                        Toast.makeText(
-                            context,
-                            """
-                            Name: ${formState.name}
-                            Phone: ${formState.phoneNumber}
-                            Email: ${formState.email}
-                            Password: ${formState.password}
-                            DOB: ${formState.dateOfBirth}
-                            Gender: ${formState.gender}
-                            Region: ${formState.region}
-                            District: ${formState.district}
-                            Prefer Theater: ${formState.preferTheater}
-                        """.trimIndent(),
-                            Toast.LENGTH_LONG
-                        ).show()
+//                        val formState = userFormState.value
+                        userViewModel.registerUser(
+                            userName = formState.name,
+                            phoneNumber = formState.phoneNumber,
+                            email = formState.email,
+                            password = formState.password,
+                            birthday = formState.dateOfBirth,
+                            gender = if (formState.gender == "Male") 0 else 1,
+                            favoriteCinema = formState.preferTheater,
+                            province = formState.region,
+                            district = formState.district
+                        ) { success ->
+                            if (success) {
+                                Toast.makeText(context, "Đăng ký thành công!", Toast.LENGTH_SHORT).show()
+                                navController.navigate(Screen.Login.route) {
+                                    popUpTo(Screen.Register.route) { inclusive = true }
+                                }
+                            } else {
+                                Toast.makeText(context, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(40.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (formState.isFormValid()) Color(
-                            0xFFB71C1C
-                        ) else Color.Gray
+                        containerColor = if (formState.isFormValid()) Color(0xFFB71C1C) else Color.Gray
                     ),
                     enabled = formState.isFormValid()
                 ) {
@@ -448,5 +453,3 @@ fun RegisterScreen() {
         )
     }
 }
-
-

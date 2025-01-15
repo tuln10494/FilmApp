@@ -12,4 +12,10 @@ interface UserDao {
 
     @Insert
     suspend fun insert(user: UserInfo)
+
+    @Query("SELECT * FROM user_info_table WHERE user_name = :emailOrPhone OR user_phone_number = :emailOrPhone LIMIT 1")
+    suspend fun getUserByEmailOrPhone(emailOrPhone: String): UserInfo?
+
+    @Query("SELECT * FROM user_info_table WHERE user_email = :email AND user_password = :password LIMIT 1")
+    suspend fun getUserByEmailAndPassword(email: String, password: String): UserInfo?
 }
