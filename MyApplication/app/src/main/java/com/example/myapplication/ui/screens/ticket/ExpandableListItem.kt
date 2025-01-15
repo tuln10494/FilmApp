@@ -11,15 +11,13 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 data class ListItem(val title: String, val content: String)
 
@@ -44,8 +42,7 @@ fun ExpandableListItem(
                 Text(
                     text = item.title,
                     modifier = Modifier.padding(start = 8.dp),
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                )
+                    style = MaterialTheme.typography.titleMedium)
                 Icon(
                     Icons.Default.KeyboardArrowDown,
                     contentDescription = "",
